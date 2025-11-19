@@ -58,7 +58,7 @@ export default function ContactSection() {
         >
           <p className="mb-8 text-center text-lg text-gray-600 dark:text-gray-300">
             Feel free to reach out for collaboration, internships, or just to
-            say hi! I'm always open to discussing new projects and
+            say hi! I&apos;m always open to discussing new projects and
             opportunities.
           </p>
 

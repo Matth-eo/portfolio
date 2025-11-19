@@ -1,13 +1,11 @@
 "use client";
 
-import Dock from "./Dock";
 import { motion } from "framer-motion";
 import {
   SiHtml5,
   SiCss3,
   SiJavascript,
   SiReact,
-  SiNextdotjs,
   SiTailwindcss,
   SiMongodb,
   SiExpress,

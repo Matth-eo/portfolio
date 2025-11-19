@@ -1,6 +1,6 @@
 "use client";
 
-import {
+import React, {
   useEffect,
   useRef,
   useState,
@@ -12,7 +12,7 @@ import { gsap } from "gsap";
 
 interface TextTypeProps {
   text: string | string[];
-  as?: keyof JSX.IntrinsicElements;
+  as?: React.ElementType;
   typingSpeed?: number;
   initialDelay?: number;
   pauseDuration?: number;
@@ -29,7 +29,7 @@ interface TextTypeProps {
   onSentenceComplete?: (sentence: string, index: number) => void;
   startOnVisible?: boolean;
   reverseMode?: boolean;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 const TextType = ({

@@ -78,7 +78,7 @@ export default function AboutSection() {
                 What I Do
               </h3>
               <p className="text-gray-600 dark:text-gray-300 flex-1">
-                I'm an aspiring web developer focused on building modern,
+                I&apos;m an aspiring web developer focused on building modern,
                 responsive web applications using the MERN stack, Next.js, and
                 Laravel. Always eager to learn new technologies and contribute
                 to meaningful projects.
@@ -93,7 +93,7 @@ export default function AboutSection() {
           >
             <div className="rounded-2xl border-2 border-neutral-300 bg-white p-6 shadow-lg dark:border-neutral-700 dark:bg-neutral-800 flex flex-col">
               <h3 className="mb-4 text-xl font-bold text-gray-800 dark:text-gray-100">
-                When I'm Not Coding
+                When I&apos;m Not Coding
               </h3>
               <div className="space-y-3 flex-1">
                 <div className="flex items-start gap-3">
