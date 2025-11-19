@@ -65,7 +65,7 @@ export default function TechStack() {
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
         <div className="rounded-3xl border-2 border-neutral-200 bg-white/50 p-6 shadow-xl backdrop-blur-sm dark:border-neutral-700 dark:bg-neutral-900/50 md:p-12">
           <motion.h2
-            className="mb-8 text-center text-3xl font-bold md:mb-12"
+            className="mb-8 text-left text-3xl font-bold md:mb-12"
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
