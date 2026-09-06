@@ -1,51 +1,82 @@
-// src/components/ProjectsSection.tsx
-"use client";
+﻿"use client";
 
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import {
+  FiArrowLeft,
+  FiArrowRight,
+  FiArrowUpRight,
+  FiCheck,
+  FiGithub,
+  FiMaximize2,
+  FiX,
+} from "react-icons/fi";
 
 type Project = {
   title: string;
-  subtitle: string;
+  category: string;
+  purpose: string;
   description: string;
   tech: string[];
-  image: string;
-  galleryImages: string[];
+  features: string[];
+  github: string;
+  sourceAvailable?: boolean;
+  demo?: string;
+  preview: "applyflow" | "tracebit" | "likhamat";
+  images: string[];
 };
 
 const projects: Project[] = [
   {
-    title: "SWIFTDRIVE",
-    subtitle: "2ND YEAR SECOND SEMESTER",
+    title: "ApplyFlow",
+    category: "01 / Job application management",
+    purpose: "A little clarity in the job search.",
     description:
-      "A mobile app that lets users rent cars and other vehicles quickly and hassle-free. Whether for daily commutes or long trips, users can browse, book, and manage rentals with ease.",
-    tech: ["Laravel", "Android"],
-    image: "/images/swiftdrive.png",
-    galleryImages: ["/images/swiftdrive/drive-1.jpg", "/images/swiftdrive/drive-2.jpg"],
-  },
-  {
-    title: "HELP ISKO!",
-    subtitle: "3RD YEAR FIRST SEMESTER",
-    description:
-      "A mobile app that connects students and professors for duty assignments. Students can request available duties, while professors can upload and manage duty postings, making the process seamless and efficient.",
-    tech: ["Flutter", "Laravel"],
-    image: "/images/helpisko.png",
-    galleryImages: [
-      "/images/helpisko/isko-1.jpg",
-      "/images/helpisko/isko-2.jpg",
-      "/images/helpisko/isko-3.jpg",
-      "/images/helpisko/isko-4.jpg",
+      "A private workspace for keeping applications, interview progress, and next steps in one place, with a dashboard that makes the search easier to follow.",
+    tech: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Auth.js"],
+    features: [
+      "Private accounts & role-based admin access",
+      "Searchable applications & six workflow statuses",
+      "Dashboard statistics & application insights",
     ],
+    github: "https://github.com/Matth-eo/applyflow",
+    sourceAvailable: false,
+    preview: "applyflow",
+    images: [],
   },
   {
-    title: "LIKHAMAT",
-    subtitle: "CAPSTONE PROJECT | 2025-2026",
+    title: "Bug Tracker",
+    category: "02 / Developer tools",
+    purpose: "From reported issue to resolved.",
     description:
-      "Gamified recycled-art platform where users submit crafts, vote, and donate to charity. Promotes sustainability through philanthropy and creative reuse of materials.",
-    tech: ["NextJs", "MongoDB", "NodeJs"],
-    image: "/images/likhamat-landing.png",
-    galleryImages: [
+      "Tracebit is a focused issue tracker for organizing projects and the work within them. Track bugs, features, and tasks without losing the context.",
+    tech: ["Next.js", "React", "TypeScript", "Prisma", "PostgreSQL"],
+    features: [
+      "Projects with owner-scoped issue access",
+      "Issue status, priority & type filters",
+      "Authenticated workflows & progress summaries",
+    ],
+    github: "https://github.com/Matth-eo/tracebit",
+    sourceAvailable: false,
+    preview: "tracebit",
+    images: [],
+  },
+  {
+    title: "Likhamat",
+    category: "03 / Capstone project",
+    purpose: "Creativity with a second purpose.",
+    description:
+      "A gamified recycled-art platform connecting creative reuse with philanthropy. Users share crafts, vote on creations, and support charitable causes.",
+    tech: ["Next.js", "MongoDB", "Node.js"],
+    features: [
+      "Recycled-art submissions & community voting",
+      "Gamified creative participation",
+      "Charitable giving through sustainability",
+    ],
+    github: "https://github.com/Coco10130/likhamat",
+    preview: "likhamat",
+    images: [
+      "/images/likhamat-landing.png",
       "/images/likhamat/lik-1.png",
       "/images/likhamat/lik-2.png",
       "/images/likhamat/lik-3.png",
@@ -54,241 +85,361 @@ const projects: Project[] = [
   },
 ];
 
+const archived = [
+  {
+    title: "SwiftDrive",
+    description: "Vehicle browsing, booking, and rental management.",
+    tech: "Laravel / Android",
+    images: [
+      "/images/swiftdrive.png",
+      "/images/swiftdrive/drive-1.jpg",
+      "/images/swiftdrive/drive-2.jpg",
+    ],
+  },
+  {
+    title: "Help Isko!",
+    description:
+      "Duty postings and requests connecting students and professors.",
+    tech: "Flutter / Laravel",
+    images: [
+      "/images/helpisko.png",
+      "/images/helpisko/isko-1.jpg",
+      "/images/helpisko/isko-2.jpg",
+      "/images/helpisko/isko-3.jpg",
+      "/images/helpisko/isko-4.jpg",
+    ],
+  },
+];
+
+function AppPreview({ kind }: { kind: "applyflow" | "tracebit" }) {
+  const apply = kind === "applyflow";
+  const stats = apply
+    ? [
+        ["Applications", "24"],
+        ["Interviews", "06"],
+        ["Offers", "02"],
+      ]
+    : [
+        ["Open issues", "12"],
+        ["In progress", "04"],
+        ["Completed", "18"],
+      ];
+  const rows = apply
+    ? [
+        ["Acme Studio", "Frontend Developer", "Interview"],
+        ["Northstar", "Software Engineer", "Applied"],
+        ["Orbit Labs", "Full-Stack Developer", "Offer"],
+      ]
+    : [
+        ["Fix session redirect", "BUG · HIGH", "In Progress"],
+        ["Add project filters", "FEATURE · MEDIUM", "Todo"],
+        ["Validate issue form", "TASK · LOW", "Done"],
+      ];
+  return (
+    <div
+      className="mock-app"
+      role="img"
+      aria-label={
+        apply
+          ? "ApplyFlow dashboard mockup with sample application statistics and job application statuses"
+          : "Tracebit issue tracker mockup with sample issues, priorities, and progress"
+      }
+    >
+      <div className="mock-sidebar">
+        <span className="mock-logo">
+          {apply ? "↗ ApplyFlow" : "◈ Tracebit"}
+        </span>
+        <p className="active">Overview</p>
+        <p>{apply ? "Applications" : "Projects"}</p>
+        {!apply && <p>Issues</p>}
+      </div>
+      <div className="mock-content">
+        <div className="mock-heading">
+          {apply ? "Your next chapter." : "Workspace overview"}
+        </div>
+        <p className="mock-sub">
+          {apply
+            ? "A clearer view of your job search."
+            : "Every issue. A step closer to shipped."}
+        </p>
+        <div className="mock-stats">
+          {stats.map(([label, value]) => (
+            <div className="mock-stat" key={label}>
+              {label}
+              <strong>{value}</strong>
+            </div>
+          ))}
+        </div>
+        <div className="mock-table-title">
+          {apply ? "Recent applications" : "Recent issues"}
+        </div>
+        {rows.map(([name, detail, status], i) => (
+          <div className="mock-row" key={name}>
+            <span>{name}</span>
+            <small>{detail}</small>
+            <span className={`mock-status ${i === 2 ? "green" : ""}`}>
+              {status}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function ProjectsSection() {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const dialog = useRef<HTMLDialogElement>(null);
+  const [gallery, setGallery] = useState<{
+    title: string;
+    images: string[];
+  } | null>(null);
+  const [index, setIndex] = useState(0);
+  const trigger = useRef<HTMLElement | null>(null);
 
-  const openGallery = (project: Project) => {
-    setSelectedProject(project);
-    setCurrentImageIndex(0);
+  useEffect(() => {
+    if (!gallery) return;
+    const element = dialog.current;
+    const previousOverflow = document.body.style.overflow;
+    element?.showModal();
+    document.body.style.overflow = "hidden";
+    return () => {
+      element?.close();
+      document.body.style.overflow = previousOverflow;
+      trigger.current?.focus();
+    };
+  }, [gallery]);
+
+  const openGallery = (project: { title: string; images: string[] }) => {
+    trigger.current = document.activeElement as HTMLElement;
+    setIndex(0);
+    setGallery(project);
   };
-
-  const closeGallery = () => {
-    setSelectedProject(null);
-    setCurrentImageIndex(0);
-  };
-
-  const nextImage = () => {
-    if (selectedProject) {
-      setCurrentImageIndex((prev) =>
-        prev === selectedProject.galleryImages.length - 1 ? 0 : prev + 1
+  const move = (direction: number) => {
+    if (gallery)
+      setIndex(
+        (current) =>
+          (current + direction + gallery.images.length) % gallery.images.length,
       );
-    }
-  };
-
-  const prevImage = () => {
-    if (selectedProject) {
-      setCurrentImageIndex((prev) =>
-        prev === 0 ? selectedProject.galleryImages.length - 1 : prev - 1
-      );
-    }
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 },
-    },
   };
 
   return (
     <>
-    <section id="projects" className="my-24">
-      <motion.h2
-        className="mb-12 text-3xl font-bold"
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
+      <section
+        id="projects"
+        className="section"
+        aria-labelledby="projects-title"
       >
-        Projects
-      </motion.h2>
-
-      <motion.div
-        className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-      >
-        {projects.map((project) => (
-          <motion.div
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">Selected work</p>
+            <h2 id="projects-title">Ideas, built into applications.</h2>
+          </div>
+          <p>
+            A closer look at the products I&apos;m building and the problems
+            they solve.
+          </p>
+        </div>
+        {projects.map((project, i) => (
+          <article
             key={project.title}
-            className="group flex flex-col overflow-hidden rounded-2xl border-2 border-neutral-300 bg-white shadow-lg transition-all hover:border-blue-500 hover:shadow-2xl dark:border-neutral-700 dark:bg-neutral-800"
-            variants={itemVariants}
+            className={`project ${i % 2 ? "reverse" : ""}`}
           >
-            {/* Project Image */}
-            <div 
-              className={`relative h-48 w-full overflow-hidden cursor-pointer group/image ${
-                project.title === "HELP ISKO!" 
-                  ? "bg-white" 
-                  : "bg-gradient-to-br from-blue-50 to-purple-50 dark:from-neutral-700 dark:to-neutral-800"
-              }`}
-              onClick={() => openGallery(project)}
-            >
-              <Image
-                src={project.image}
-                alt={`${project.title} screenshot`}
-                fill
-                className={`transition-transform duration-300 group-hover:scale-110 ${
-                  project.title === "HELP ISKO!" ? "object-contain" : "object-cover"
-                }`}
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              />
-              {/* Hover Overlay */}
-              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/image:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <p className="text-white text-sm font-semibold">Click to view pictures</p>
-              </div>
-            </div>
-
-            {/* Project Content */}
-            <div className="flex flex-1 flex-col p-6">
-              <h3 className="mb-2 text-2xl font-bold text-gray-800 dark:text-gray-100">
-                {project.title}
-              </h3>
-
-              <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400">
-                {project.subtitle}
-              </p>
-
-              <p className="mb-4 flex-1 text-gray-600 dark:text-gray-300">
-                {project.description}
-              </p>
-
-              {/* Tech Stack */}
-              <div className="flex flex-wrap gap-2">
+            <div className="project-copy">
+              <p className="eyebrow">{project.category}</p>
+              <h3>{project.title}</h3>
+              <p className="project-purpose">{project.purpose}</p>
+              <p className="project-description">{project.description}</p>
+              <ul className="feature-list">
+                {project.features.map((feature) => (
+                  <li key={feature}>
+                    <FiCheck aria-hidden="true" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <div className="tech-tags" aria-label="Technology stack">
                 {project.tech.map((tech) => (
-                  <span
-                    key={tech}
-                    className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
-                  >
-                    {tech}
-                  </span>
+                  <span key={tech}>{tech}</span>
                 ))}
               </div>
+              <div className="project-links">
+                <a
+                  className="text-link"
+                  href={
+                    project.sourceAvailable === false
+                      ? `mailto:matt.manamtam@gmail.com?subject=${encodeURIComponent(`Source code request: ${project.title}`)}`
+                      : project.github
+                  }
+                  target={
+                    project.sourceAvailable === false ? undefined : "_blank"
+                  }
+                  rel={
+                    project.sourceAvailable === false
+                      ? undefined
+                      : "noopener noreferrer"
+                  }
+                >
+                  <FiGithub />{" "}
+                  {project.sourceAvailable === false
+                    ? "Request source"
+                    : "GitHub"}{" "}
+                  <FiArrowUpRight />
+                </a>
+                {project.demo && (
+                  <a
+                    className="text-link"
+                    href={project.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Live demo <FiArrowUpRight />
+                  </a>
+                )}
+                {project.images.length > 0 && (
+                  <button
+                    className="text-link"
+                    onClick={() => openGallery(project)}
+                  >
+                    View gallery <FiMaximize2 />
+                  </button>
+                )}
+              </div>
             </div>
-          </motion.div>
-        ))}
-      </motion.div>
-    </section>
-
-    {/* Gallery Modal */}
-    <AnimatePresence>
-      {selectedProject && (
-        <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={closeGallery}
-        >
-          <motion.div
-            className="relative max-h-[90vh] max-w-[90vw]"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.8, opacity: 0 }}
-            transition={{ type: "spring", damping: 20 }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close Button */}
-            <button
-              className="absolute -right-4 -top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white text-gray-800 shadow-lg transition-all hover:scale-110 hover:bg-gray-100"
-              onClick={closeGallery}
-              aria-label="Close modal"
+            <div
+              className={`project-visual ${i === 1 ? "blue" : i === 2 ? "green" : ""}`}
             >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+              <div className="preview-window">
+                <div className="window-bar" aria-hidden="true">
+                  <i />
+                  <i />
+                  <i />
+                  <span>
+                    {project.preview === "tracebit"
+                      ? "Tracebit / Workspace"
+                      : project.title}
+                  </span>
+                </div>
+                {project.preview === "likhamat" ? (
+                  <button
+                    className="screenshot-button"
+                    aria-label="Open Likhamat screenshot gallery"
+                    onClick={() => openGallery(project)}
+                  >
+                    <div className="screenshot">
+                      <Image
+                        src="/images/likhamat-landing.png"
+                        alt="Likhamat recycled-art platform landing page"
+                        fill
+                        sizes="(max-width: 640px) 90vw, 55vw"
+                        className="object-cover object-top"
+                      />
+                    </div>
+                  </button>
+                ) : (
+                  <AppPreview kind={project.preview} />
+                )}
+              </div>
+              <div className="preview-caption">
+                <span>
+                  {project.preview === "likhamat"
+                    ? "Community & sustainability"
+                    : "Private workspace"}
+                </span>
+                <span>
+                  {project.preview === "likhamat"
+                    ? "Application screenshot"
+                    : "Interface mockup · Sample data"}
+                </span>
+              </div>
+            </div>
+          </article>
+        ))}
+        <details className="archive">
+          <summary>
+            Earlier work{" "}
+            <span className="ml-2 text-neutral-500">/ 2 projects</span>
+          </summary>
+          <div className="archive-grid">
+            {archived.map((project) => (
+              <article key={project.title} className="archive-item">
+                <div>
+                  <h3>{project.title}</h3>
+                  <p>{project.description}</p>
+                  <p>{project.tech}</p>
+                </div>
+                <button
+                  className="text-link"
+                  onClick={() => openGallery(project)}
+                >
+                  View gallery <FiArrowUpRight />
+                </button>
+              </article>
+            ))}
+          </div>
+        </details>
+      </section>
+      <dialog
+        ref={dialog}
+        className="gallery"
+        aria-labelledby="gallery-title"
+        onCancel={() => setGallery(null)}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) {
+            const bounds = event.currentTarget.getBoundingClientRect();
+            if (
+              event.clientX < bounds.left ||
+              event.clientX > bounds.right ||
+              event.clientY < bounds.top ||
+              event.clientY > bounds.bottom
+            )
+              setGallery(null);
+          }
+        }}
+        onKeyDown={(event) => {
+          if (event.key === "ArrowRight") {
+            event.preventDefault();
+            move(1);
+          }
+          if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            move(-1);
+          }
+        }}
+      >
+        {gallery && (
+          <>
+            <div className="gallery-header">
+              <h3 id="gallery-title">{gallery.title}</h3>
+              <button
+                aria-label="Close gallery"
+                onClick={() => setGallery(null)}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-
-            {/* Image Container */}
-            <div className="relative h-[80vh] w-[80vw]">
+                <FiX />
+              </button>
+            </div>
+            <div className="gallery-image">
               <Image
-                src={selectedProject.galleryImages[currentImageIndex]}
-                alt={`${selectedProject.title} - Image ${currentImageIndex + 1}`}
+                src={gallery.images[index]}
+                alt={`${gallery.title} screenshot ${index + 1}`}
                 fill
-                className="object-contain"
                 sizes="90vw"
+                className="object-contain"
               />
             </div>
-
-            {/* Navigation Buttons */}
-            {selectedProject.galleryImages.length > 1 && (
-              <>
-                {/* Previous Button */}
-                <button
-                  className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 text-white hover:text-blue-400 transition-colors"
-                  onClick={prevImage}
-                  aria-label="Previous image"
-                >
-                  <svg
-                    className="h-8 w-8 md:h-10 md:w-10 drop-shadow-lg"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    strokeWidth={3}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M15 19l-7-7 7-7"
-                    />
-                  </svg>
-                </button>
-
-                {/* Next Button */}
-                <button
-                  className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 text-white hover:text-blue-400 transition-colors"
-                  onClick={nextImage}
-                  aria-label="Next image"
-                >
-                  <svg
-                    className="h-8 w-8 md:h-10 md:w-10 drop-shadow-lg"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    strokeWidth={3}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </button>
-
-                {/* Image Counter */}
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/70 px-4 py-2 text-sm font-semibold text-white">
-                  {currentImageIndex + 1} / {selectedProject.galleryImages.length}
-                </div>
-              </>
-            )}
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+            <div className="gallery-controls">
+              <button onClick={() => move(-1)} aria-label="Previous image">
+                <FiArrowLeft />
+              </button>
+              <span aria-live="polite">
+                {index + 1} / {gallery.images.length}
+              </span>
+              <button onClick={() => move(1)} aria-label="Next image">
+                <FiArrowRight />
+              </button>
+            </div>
+          </>
+        )}
+      </dialog>
     </>
   );
 }

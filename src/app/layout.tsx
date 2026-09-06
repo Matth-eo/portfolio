@@ -1,33 +1,13 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import "./globals.css";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["400", "500"],
-});
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  weight: ["700"],
-});
-
 export const metadata: Metadata = {
-  title: "Matt Manamtam | Portfolio",
-  description: "Full-stack developer – React • Next.js • MERN",
-  authors: [{ name: "Matt Manamtam" }],
-  keywords: [
-    "Matt Manamtam",
-    "portfolio",
-    "Next.js",
-    "React",
-    "MERN",
-    "web developer",
-  ],
+  title: "Matt | Full-Stack Developer",
+  description:
+    "Junior full-stack developer building modern web applications with Next.js, React, and Node.js. Explore ApplyFlow, Bug Tracker, and Likhamat.",
+  authors: [{ name: "Matt" }],
 };
-
 export default function RootLayout({
   children,
 }: {
@@ -35,11 +15,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body
-        className={`${inter.variable} ${playfair.variable} bg-neutral-900 text-gray-100 antialiased`}
-      >
+      <body>
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
         <Navbar />
-        <main className="mx-auto max-w-6xl px-4">{children}</main>
+        {children}
+        <Footer />
       </body>
     </html>
   );
