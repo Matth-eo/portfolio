@@ -194,23 +194,36 @@ summary:focus-visible {
   background: #fff;
   border-color: white;
 }
-.hero-bottom {
+.hero-capabilities {
   margin-top: 88px;
-  padding: 24px 0;
+  padding: 28px 0;
   border-block: 1px solid var(--line);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  font-size: 12px;
-  color: var(--muted);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
 }
-.hero-stack {
+.hero-capabilities li {
   display: flex;
-  gap: 28px;
-  flex-wrap: wrap;
-  color: #c2c0ce;
+  align-items: flex-start;
+  gap: 14px;
+}
+.hero-capabilities li > svg {
+  width: 19px;
+  height: 19px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  color: var(--accent);
+}
+.hero-capabilities h2 {
   font-size: 14px;
+  font-weight: 500;
+  color: #ded9e8;
+}
+.hero-capabilities p {
+  margin-top: 6px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
 }
 .section {
   padding-top: 108px;
@@ -691,14 +704,10 @@ summary:focus-visible {
   .hero-description {
     font-size: 16px;
   }
-  .hero-bottom {
+  .hero-capabilities {
     margin-top: 60px;
-    align-items: flex-start;
-    flex-direction: column;
-  }
-  .hero-stack {
-    gap: 18px;
-    font-size: 13px;
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
   .section {
     padding-top: 72px;

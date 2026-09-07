@@ -1,4 +1,11 @@
-import { FiArrowDown, FiArrowUpRight, FiGithub } from "react-icons/fi";
+import {
+  FiArrowDown,
+  FiArrowUpRight,
+  FiGithub,
+  FiLayout,
+  FiServer,
+  FiDatabase,
+} from "react-icons/fi";
 export default function HeroSection() {
   return (
     <section id="home" className="hero" aria-labelledby="hero-title">
@@ -26,16 +33,29 @@ export default function HeroSection() {
           <FiGithub /> GitHub <FiArrowUpRight />
         </a>
       </div>
-      <div className="hero-bottom">
-        <span>FROM INTERFACE TO DATABASE</span>
-        <div className="hero-stack">
-          <span>React</span>
-          <span>Next.js</span>
-          <span>TypeScript</span>
-          <span>Node.js</span>
-          <span>PostgreSQL</span>
-        </div>
-      </div>
+      <ul className="hero-capabilities" aria-label="What I build">
+        <li>
+          <FiLayout aria-hidden="true" />
+          <div>
+            <h2>Responsive interfaces</h2>
+            <p>Easy to use, on any screen.</p>
+          </div>
+        </li>
+        <li>
+          <FiServer aria-hidden="true" />
+          <div>
+            <h2>Backend logic</h2>
+            <p>APIs, authentication, and workflows.</p>
+          </div>
+        </li>
+        <li>
+          <FiDatabase aria-hidden="true" />
+          <div>
+            <h2>Connected data</h2>
+            <p>Structured for real application needs.</p>
+          </div>
+        </li>
+      </ul>
     </section>
   );
 }
