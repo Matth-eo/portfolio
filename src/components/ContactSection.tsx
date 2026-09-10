@@ -8,8 +8,12 @@ import {
 export default function ContactSection() {
   return (
     <section id="contact" className="contact" aria-labelledby="contact-title">
-      <p className="eyebrow">Have something in mind?</p>
-      <h2 id="contact-title">Let&apos;s build something useful.</h2>
+      <p className="eyebrow">05 / Contact</p>
+      <h2 id="contact-title">
+        Have a role in mind?
+        <br />
+        <span>Let&apos;s talk.</span>
+      </h2>
       <p className="mb-4">Matt Theodore Manamtam · Full-Stack Developer</p>
       <p>
         I&apos;m open to junior developer roles, internships, and collaboration.
@@ -22,6 +26,14 @@ export default function ContactSection() {
           href="mailto:matt.manamtam@gmail.com"
         >
           <FiMail /> Get in touch <FiArrowUpRight />
+        </a>
+        <a
+          className="button button-secondary"
+          href="/resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Resume <FiArrowUpRight aria-hidden="true" />
         </a>
         <a
           className="text-link"

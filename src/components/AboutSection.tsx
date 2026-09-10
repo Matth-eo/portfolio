@@ -2,19 +2,19 @@ export default function AboutSection() {
   return (
     <section id="about" className="section about" aria-labelledby="about-title">
       <div>
-        <p className="eyebrow">The developer behind the work</p>
+        <p className="eyebrow">04 / About</p>
         <h2 id="about-title">
-          Curious by nature.
+          Always curious.
           <br />
-          An engineer in the making.
+          Still building.
         </h2>
       </div>
       <div className="about-copy">
         <p>
-          I&apos;m Matt, a junior full-stack developer focused
-          on building practical web applications. I enjoy connecting the pieces:
-          the interface people use, the logic behind it, and the data that makes
-          it useful.
+          I&apos;m Matt, a junior full-stack developer focused on building
+          practical web applications. I enjoy connecting the pieces: the
+          interface people use, the logic behind it, and the data that makes it
+          useful.
         </p>
         <p>
           My projects are where I put that into practice, working with React,
@@ -26,10 +26,6 @@ export default function AboutSection() {
           looking to learn from an engineering team and contribute to meaningful
           software.
         </p>
-        <div className="education">
-          <strong>BS in Information Technology</strong>
-          <span>University of Pangasinan</span>
-        </div>
       </div>
     </section>
   );
