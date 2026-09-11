@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import PageLoader from "@/components/PageLoader";
 import "./globals.css";
 const inter = Inter({
   subsets: ["latin"],
@@ -27,12 +28,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${display.variable}`}>
-        <a href="#main-content" className="skip-link">
-          Skip to content
-        </a>
-        <Navbar />
-        {children}
-        <Footer />
+        <PageLoader>
+          <a href="#main-content" className="skip-link">
+            Skip to content
+          </a>
+          <Navbar />
+          {children}
+          <Footer />
+        </PageLoader>
       </body>
     </html>
   );

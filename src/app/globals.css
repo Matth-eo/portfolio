@@ -1701,3 +1701,66 @@ summary:focus-visible {
     display: none;
   }
 }
+
+/* The loader uses the same CSS animation system as the hero and section reveals. */
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  min-height: 100dvh;
+  background: var(--background);
+}
+/* Cover the server-rendered page immediately, before hydration starts. */
+[data-loader="pending"] > .page-content { visibility: hidden; }
+.loader-content { position: relative; width: min(180px, 60vw); text-align: center; isolation: isolate; }
+.loader-content::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -90px -70px -30px;
+  background: radial-gradient(ellipse, #548fdb26, transparent 68%);
+  opacity: .65;
+  transition: opacity 180ms ease;
+  pointer-events: none;
+}
+.loader-mark { font-family: monospace; font-size: clamp(36px, 8vw, 48px); font-weight: 500; letter-spacing: -.05em; line-height: 1.2; color: var(--accent); white-space: nowrap; }
+.loader-label { margin-top: 22px; font: 10px monospace; letter-spacing: .22em; color: var(--muted); }
+.loader-track { height: 2px; margin-top: 20px; overflow: hidden; border-radius: 2px; background: var(--line); }
+.loader-progress { display: block; height: 100%; width: 100%; background: var(--blue); transform: scaleX(.12); transform-origin: left; }
+[data-loader="loading"] .loader-progress { animation: loader-pending 1.4s ease-out forwards; }
+[data-loader="complete"] .loader-progress { animation: loader-complete 180ms ease-out forwards; }
+[data-loader="complete"] .loader-content::before,
+[data-loader="exiting"] .loader-content::before { opacity: 1; }
+[data-loader="exiting"] .loader-progress { transform: scaleX(1); }
+[data-loader="exiting"] > .page-loader { animation: loader-exit 220ms ease-out forwards; }
+@keyframes loader-pending { to { transform: scaleX(.8); } }
+@keyframes loader-complete { from { transform: scaleX(.12); } to { transform: scaleX(1); } }
+@keyframes loader-exit { to { opacity: 0; } }
+@media (prefers-reduced-motion: no-preference) {
+  [data-loader="loading"] .hero-identity,
+  [data-loader="loading"] .hero-label,
+  [data-loader="loading"] .hero h1,
+  [data-loader="loading"] .hero-description,
+  [data-loader="loading"] .hero .actions,
+  [data-loader="complete"] .hero-identity,
+  [data-loader="complete"] .hero-label,
+  [data-loader="complete"] .hero h1,
+  [data-loader="complete"] .hero-description,
+  [data-loader="complete"] .hero .actions,
+  [data-loader="exiting"] .hero-identity,
+  [data-loader="exiting"] .hero-label,
+  [data-loader="exiting"] .hero h1,
+  [data-loader="exiting"] .hero-description,
+  [data-loader="exiting"] .hero .actions { animation: none; opacity: 0; }
+  [data-loader="done"] .hero-identity { animation: entrance .55s ease-out both; }
+  [data-loader="done"] .hero-label { animation: entrance .55s 60ms ease-out both; }
+  [data-loader="done"] .hero h1 { animation: entrance .55s 120ms ease-out both; }
+  [data-loader="done"] .hero-description { animation: entrance .55s 180ms ease-out both; }
+  [data-loader="done"] .hero .actions { animation: entrance .55s 240ms ease-out both; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-loader { display: none; }
+  [data-loader="pending"] > .page-content { visibility: visible; }
+}
