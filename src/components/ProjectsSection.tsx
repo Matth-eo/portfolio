@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import dynamic from "next/dynamic";
-import { FiArrowUpRight } from "react-icons/fi";
+import { FiArrowUpRight, FiGithub } from "react-icons/fi";
 import { projects, archived } from "@/data/projects";
 import ProjectMedia from "./ProjectMedia";
 import type { DetailProject } from "./ProjectDialog";
@@ -63,13 +63,27 @@ export default function ProjectsSection() {
                     <TechIcon key={tech} name={tech} compact />
                   ))}
                 </div>
-                <button
-                  className="project-open"
-                  aria-label={`View ${project.title} project details`}
-                  onClick={() => setSelected(index)}
-                >
-                  View Project <FiArrowUpRight aria-hidden="true" />
-                </button>
+                <div className="project-card-actions">
+                  {project.github && project.sourceAvailable !== false && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-github"
+                      aria-label={`View ${project.title} on GitHub`}
+                      title={`View ${project.title} on GitHub`}
+                    >
+                      <FiGithub aria-hidden="true" /> GitHub
+                    </a>
+                  )}
+                  <button
+                    className="project-open"
+                    aria-label={`View ${project.title} project details`}
+                    onClick={() => setSelected(index)}
+                  >
+                    View Project <FiArrowUpRight aria-hidden="true" />
+                  </button>
+                </div>
               </div>
             </div>
           </article>
@@ -85,17 +99,30 @@ export default function ProjectsSection() {
               <h3>{project.title}</h3>
               <p>{project.description}</p>
               <p>{project.tech}</p>
-              <button
-                className="text-link"
-                onClick={() =>
-                  setOlderProject({
-                    ...project,
-                    tech: project.tech.split(" / "),
-                  })
-                }
-              >
-                View gallery <FiArrowUpRight aria-hidden="true" />
-              </button>
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-github"
+                  aria-label={`View ${project.title} on GitHub`}
+                >
+                  <FiGithub aria-hidden="true" /> GitHub
+                </a>
+              )}
+              {project.images.length > 0 && (
+                <button
+                  className="text-link"
+                  onClick={() =>
+                    setOlderProject({
+                      ...project,
+                      tech: project.tech.split(" / "),
+                    })
+                  }
+                >
+                  View gallery <FiArrowUpRight aria-hidden="true" />
+                </button>
+              )}
             </article>
           ))}
         </div>

@@ -20,11 +20,11 @@ export default function ProjectMedia({
         <div className="mock-frame">
           <ProjectPreview
             kind={
-              project.preview === "cloudrop"
-                ? "cloudrop"
-                : project.preview === "tracebit"
-                  ? "tracebit"
-                  : "applyflow"
+              project.preview === "cloudrop" ||
+              project.preview === "tracebit" ||
+              project.preview === "evolv"
+                ? project.preview
+                : "applyflow"
             }
           />
         </div>

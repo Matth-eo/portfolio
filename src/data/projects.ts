@@ -12,7 +12,7 @@ export type Project = {
   github: string;
   sourceAvailable?: boolean;
   demo?: string;
-  preview: "applyflow" | "tracebit" | "likhamat" | "clicklens" | "cloudrop";
+  preview: "applyflow" | "tracebit" | "likhamat" | "clicklens" | "cloudrop" | "evolv";
   images: string[];
 };
 
@@ -73,7 +73,6 @@ export const projects: Project[] = [
       "Cognito accounts & a personal upload library",
     ],
     github: "https://github.com/Matth-eo/cloudrop",
-    sourceAvailable: false,
     preview: "cloudrop",
     images: [],
   },
@@ -96,7 +95,6 @@ export const projects: Project[] = [
       "Dashboard statistics & application insights",
     ],
     github: "https://github.com/Matth-eo/applyflow",
-    sourceAvailable: false,
     preview: "applyflow",
     images: [],
   },
@@ -119,7 +117,6 @@ export const projects: Project[] = [
       "Owner-scoped data & progress dashboards",
     ],
     github: "https://github.com/Matth-eo/tracebit",
-    sourceAvailable: false,
     preview: "tracebit",
     images: [],
   },
@@ -142,16 +139,44 @@ export const projects: Project[] = [
       "Database sessions & owner-scoped analytics",
     ],
     github: "https://github.com/Matth-eo/clicklens",
-    sourceAvailable: false,
     preview: "clicklens",
     images: [
       "/images/clicklens/analytics.png",
       "/images/clicklens/landing.png",
     ],
   },
+  {
+    title: "Evolv",
+    summary: "Goals, habits, and a clearer view of your progress.",
+    architecture: [
+      "Next.js and TypeScript power the personal development interface.",
+      "Prisma connects application data to PostgreSQL; Auth.js handles authentication.",
+    ],
+    role: "Full-Stack Development",
+    category: "06 / Personal development",
+    purpose: "Small steps. Meaningful progress.",
+    description:
+      "Personal development platform for goals, milestones, habits, streaks, and progress tracking.",
+    tech: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Auth.js"],
+    features: [
+      "Goals and milestones to organize personal development",
+      "Habit and streak tracking to build consistency",
+      "Progress tracking across personal goals",
+    ],
+    github: "https://github.com/Matth-eo/evolv",
+    preview: "evolv",
+    images: [],
+  },
 ];
 
 export const archived = [
+  {
+    title: "Portfolio",
+    description: "My developer portfolio, project showcase, and experience.",
+    tech: "Next.js / TypeScript / Tailwind CSS",
+    github: "https://github.com/Matth-eo/portfolio",
+    images: [],
+  },
   {
     title: "SwiftDrive",
     description: "Vehicle browsing, booking, and rental management.",

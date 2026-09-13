@@ -3,8 +3,47 @@ import { FiUploadCloud } from "react-icons/fi";
 export default function ProjectPreview({
   kind,
 }: {
-  kind: "applyflow" | "tracebit" | "cloudrop";
+  kind: "applyflow" | "tracebit" | "cloudrop" | "evolv";
 }) {
+  if (kind === "evolv") {
+    return (
+      <div
+        className="mock-app"
+        role="img"
+        aria-label="Evolv dashboard mockup with sample goals, milestones, habits, and streak progress"
+      >
+        <div className="mock-sidebar">
+          <span className="mock-logo">Evolv</span>
+          <p className="active">Overview</p>
+          <p>Goals</p>
+          <p>Habits</p>
+        </div>
+        <div className="mock-content">
+          <div className="mock-heading">A little better, every day.</div>
+          <p className="mock-sub">Small steps toward the person you want to be.</p>
+          <div className="mock-stats">
+            {[["Active goals", "04"], ["Milestones", "12"], ["Day streak", "07"]].map(([label, value]) => (
+              <div className="mock-stat" key={label}>
+                {label}<strong>{value}</strong>
+              </div>
+            ))}
+          </div>
+          <div className="mock-table-title">Your progress</div>
+          {[
+            ["Learn TypeScript", "3 of 5 milestones", "60%"],
+            ["Read every day", "7-day streak", "On track"],
+            ["Build a morning routine", "Daily habit", "Done"],
+          ].map(([name, detail, status], index) => (
+            <div className="mock-row" key={name}>
+              <span>{name}</span>
+              <small>{detail}</small>
+              <span className={`mock-status ${index === 2 ? "green" : ""}`}>{status}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
   if (kind === "cloudrop") {
     return (
       <div

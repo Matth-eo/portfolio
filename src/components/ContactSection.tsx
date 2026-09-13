@@ -37,7 +37,7 @@ export default function ContactSection() {
         </a>
         <a
           className="text-link"
-          href="https://github.com/MattManamtam"
+          href="https://github.com/"
           target="_blank"
           rel="noopener noreferrer"
         >

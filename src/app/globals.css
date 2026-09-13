@@ -1764,3 +1764,33 @@ summary:focus-visible {
   .page-loader { display: none; }
   [data-loader="pending"] > .page-content { visibility: visible; }
 }
+
+/* Keep source links above the card's stretched project-details target. */
+.project-card-bottom { flex-wrap: wrap; }
+.project-card-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.project-github {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  color: var(--accent);
+  font-size: 13px;
+  white-space: nowrap;
+  transition: background var(--motion), border-color var(--motion);
+}
+.project-github:hover {
+  background: var(--surface);
+  border-color: var(--accent);
+}
+.project-github svg { width: 16px; height: 16px; }
