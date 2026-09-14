@@ -6,7 +6,7 @@ export default function Footer() {
         <span>© {new Date().getFullYear()} Matt.</span>
         <div className="footer-links">
           <a
-            href="https://github.com/MattManamtam"
+            href="https://github.com/Matth-eo"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Matt on GitHub"
